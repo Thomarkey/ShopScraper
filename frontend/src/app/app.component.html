@@ -1,0 +1,25 @@
+<h1>THOMAS</h1>
+
+
+<div class="container">
+    <h2>Textbox with Submit Button</h2>
+    <div class="input-group">
+        <input type="text" id="myInput" #myInput placeholder="Enter text">
+        <input type="submit" value="Submit" (click)="submitText(myInput.value)">
+    </div>
+
+    inputvalue: {{ inputValue }}
+
+
+</div>
+
+<div *ngFor="let item of itemsList">
+    <h3> {{ item.title }} </h3>
+    <span><b>Prijs</b>: {{ item.price }}</span><br />
+    <span> {{ item.size }}</span><br />
+    <span> Prijs per kg: {{ item.pricePerKg }} </span><br />
+    <img [src]="item.imageUrl" alt="Product Image" />
+
+</div>
+
+<!-- <app-api></app-api> -->
