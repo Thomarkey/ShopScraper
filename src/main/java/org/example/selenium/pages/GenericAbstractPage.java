@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 public abstract class GenericAbstractPage {
 
     protected final WebDriver webDriver;
-    public long shortTimeOut = 40;
+    public long shortTimeOut = 10;
     public GenericAbstractPage() {
         this.webDriver = WebDriverProvider.getDriver();
         PageFactory.initElements(this.webDriver, this);

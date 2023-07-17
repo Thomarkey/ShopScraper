@@ -1,9 +1,11 @@
 package org.example.selenium.driver;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.example.selenium.pages.Cookies;
 import org.example.selenium.pages.HomePage;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class WebDriverProvider {
 
@@ -15,7 +17,12 @@ public class WebDriverProvider {
 
     public static void setUpDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\thoma\\Documents\\chromedriver.exe");
-        webDriver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--headless");
+
+        webDriver = new ChromeDriver(options);
+
         webDriver.manage().window().setSize(new Dimension(1920, 1080));
     }
 

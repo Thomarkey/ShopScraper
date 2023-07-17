@@ -1,16 +1,25 @@
-<h1>THOMAS</h1>
+<h1>SHOP SCRAPER WIP</h1>
 
 
 <div class="container">
-    <h2>Textbox with Submit Button</h2>
+    <h2>Look up your item</h2>
     <div class="input-group">
-        <input type="text" id="myInput" #myInput placeholder="Enter text">
-        <input type="submit" value="Submit" (click)="submitText(myInput.value)">
+        <input type="text" id="myInput" #myInput [(ngModel)]="inputValue" placeholder="Enter text">
+        <input type="submit" id="submitBtn" value="Submit" [disabled]="!selectedStore"
+            (click)="submitText(myInput.value, selectedStore)">
     </div>
 
-    inputvalue: {{ inputValue }}
+    <input type="checkbox" id="delhaizeCheckbox" [checked]="selectedStore === 'Delhaize'"
+        (change)="onCheckboxChange($event, 'Delhaize')">
+    <label for="delhaizeCheckbox">Delhaize</label>
+
+    <input type="checkbox" id="ahCheckbox" [checked]="selectedStore === 'Albert Heijn'"
+        (change)="onCheckboxChange($event, 'AH')">
+    <label for="ahCheckbox">Albert Heijn</label>
 
 
+    <p>item: {{ inputValue }}</p>
+    <p>Selected Store: {{ selectedStore }}</p>
 </div>
 
 <div *ngFor="let item of itemsList">

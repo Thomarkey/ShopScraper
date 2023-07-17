@@ -19,4 +19,10 @@ export class ApiService {
     return this.http.get<Item[]>(url);
   }
 
+
+  lookUpWithStore(searchTerm: string, store: string): Observable<Item[]> {
+    const url = `${this.backendApiUrl}/${searchTerm}/${store}`;
+    return this.http.get<Item[]>(url);
+  }
+
 }

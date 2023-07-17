@@ -5,14 +5,18 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends GenericAbstractPage {
 
+    //AH
     @FindBy(css = "#navigation-search-form input")
     WebElement searchBar;
 
+    //AH
     @FindBy(css = "#navigation-search-form [type=\"submit\"]")
     WebElement searchSubmit;
 
 
     public void lookFor(String product) {
+        waitShortForElementVisibility(searchBar);
+        System.out.println("waited");
         searchBar.sendKeys(product);
         searchSubmit.click();
         System.out.println(webDriver.getCurrentUrl());

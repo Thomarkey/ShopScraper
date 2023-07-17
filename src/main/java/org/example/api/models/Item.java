@@ -14,10 +14,15 @@ public class Item {
 
     private String imageUrl;
 
-    public Item(String title, String price, String size, String imageUrl) {
+    public Item(String title, String price, String size, String imageUrl, String pricePerKg) {
         this.title = title;
         this.price = price;
         this.size = size;
+        if (pricePerKg == null) {
+            this.pricePerKg = calculatePricePerKg();
+        } else {
+            this.pricePerKg = Helper.parseSizeNumber(pricePerKg);
+        }
         this.pricePerKg = calculatePricePerKg();
         this.imageUrl = imageUrl;
     }
@@ -29,7 +34,7 @@ public class Item {
             double numericSize = Helper.parseSizeNumber(this.size);
             double numericPrice = Helper.parseNumber(this.price);
 
-            this.pricePerKg = numericPrice / (numericSize/1000);
+            this.pricePerKg = numericPrice / (numericSize / 1000);
         }
         return Math.round(this.pricePerKg * 100.0) / 100.0;
     }

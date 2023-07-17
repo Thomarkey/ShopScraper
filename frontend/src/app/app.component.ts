@@ -11,16 +11,36 @@ export class AppComponent {
 
   title = 'shop scraper WIP';
   inputValue: string = '';
+  selectedStore: string = '';
   itemsList: Item[] = [];
 
   constructor(private apiService: ApiService) {
   }
 
-  submitText(inputValue: string) {
+  // submitText(inputValue: string) {
+  //   console.log(inputValue);
+  //   this.inputValue = inputValue;
+
+  //   this.apiService.lookUp(inputValue).subscribe((response: Item[]) => {
+  //     if (Array.isArray(response)) {
+  //       this.itemsList = response;
+  //     } else {
+  //       // Handle the case when the response is a single string
+  //       // You can modify this part based on your specific requirement
+  //       this.itemsList = [response];
+  //     }
+  //   });
+
+  // }
+
+  submitText(inputValue: string, selectedStore: string) {
     console.log(inputValue);
     this.inputValue = inputValue;
 
-    this.apiService.lookUp(inputValue).subscribe((response: Item[]) => {
+    console.log(selectedStore);
+    this.selectedStore = selectedStore;
+
+    this.apiService.lookUpWithStore(inputValue, selectedStore).subscribe((response: Item[]) => {
       if (Array.isArray(response)) {
         this.itemsList = response;
       } else {
@@ -29,7 +49,12 @@ export class AppComponent {
         this.itemsList = [response];
       }
     });
-
   }
+
+  onCheckboxChange(event: Event, store: string) {
+    const checkbox = event.target as HTMLInputElement;
+    this.selectedStore = checkbox.checked ? store : '';
+  }
+
 
 }
