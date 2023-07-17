@@ -1,6 +1,5 @@
 package org.example.api;
 
-
 public class Helper {
 
 
@@ -9,17 +8,12 @@ public class Helper {
         String numericString = value.replaceAll("[^\\d.]", "");
 
         // Parse the numeric string to a double
-
         return Double.parseDouble(numericString);
     }
 
-    //keep the DOT
-    public static double parseSizeNumber(String value) {
-        // Remove any non-numeric characters from the string
-        String numericString = value.replaceAll("[^\\d]", "");
 
-        // Parse the numeric string to a double
-        return Double.parseDouble(numericString);
+    public static double parseSizeNumber(String value) {
+        return Double.parseDouble(value.replace("ca.","").replaceAll("[^\\d.,]+", "").replace(",", "."));
     }
 
 

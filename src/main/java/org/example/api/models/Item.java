@@ -23,7 +23,6 @@ public class Item {
         } else {
             this.pricePerKg = Helper.parseSizeNumber(pricePerKg);
         }
-        this.pricePerKg = calculatePricePerKg();
         this.imageUrl = imageUrl;
     }
 

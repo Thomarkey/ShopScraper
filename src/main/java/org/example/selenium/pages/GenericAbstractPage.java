@@ -28,4 +28,10 @@ public abstract class GenericAbstractPage {
         waitForElementVisibility(element, shortTimeOut);
     }
 
+//TODO: Index 0 out of bounds for length 0 if elementList is not loaded yet: NEED TO FIX
+
+//    public void waitShortForElementsVisibility(List<WebElement> elementList){
+//        waitShortForElementVisibility(elementList.get(0));
+//    }
+
 }

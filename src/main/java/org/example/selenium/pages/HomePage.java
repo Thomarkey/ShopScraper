@@ -14,11 +14,11 @@ public class HomePage extends GenericAbstractPage {
     WebElement searchSubmit;
 
 
-    public void lookFor(String product) {
+    public SearchResultPage lookFor(String product) {
         waitShortForElementVisibility(searchBar);
         System.out.println("waited");
         searchBar.sendKeys(product);
         searchSubmit.click();
-        System.out.println(webDriver.getCurrentUrl());
+        return new SearchResultPage();
     }
 }
