@@ -17,6 +17,10 @@
         (change)="onCheckboxChange($event, 'AH')">
     <label for="ahCheckbox">Albert Heijn</label>
 
+    <input type="checkbox" id="carrefourCheckbox" [checked]="selectedStore === 'Carrefour'"
+        (change)="onCheckboxChange($event, 'Carrefour')">
+    <label for="carrefourCheckbox">Carrefour</label>
+
 
     <p>item: {{ inputValue }}</p>
     <p>Selected Store: {{ selectedStore }}</p>
@@ -26,7 +30,7 @@
     <h3> {{ item.title }} </h3>
     <span><b>Prijs</b>: {{ item.price }}</span><br />
     <span> {{ item.size }}</span><br />
-    <span> Prijs per kg: {{ item.pricePerKg }} </span><br />
+    <span> Prijs per kg: {{ item.pricePerKg }} </span><br /><br />
     <img [src]="item.imageUrl" alt="Product Image" />
 
 </div>

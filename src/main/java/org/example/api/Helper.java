@@ -12,9 +12,12 @@ public class Helper {
     }
 
 
-    public static double parseSizeNumber(String value) {
-        return Double.parseDouble(value.replace("ca.","").replaceAll("[^\\d.,]+", "").replace(",", "."));
+    public static Double parseSizeNumber(String value) {
+        try {
+            return Double.parseDouble(value.replace("ca.", "").replaceAll("[^\\d.,]+", "").replace(",", "."));
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
-
 
 }
