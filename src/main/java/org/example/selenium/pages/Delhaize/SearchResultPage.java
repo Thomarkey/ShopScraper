@@ -1,6 +1,7 @@
-package org.example.selenium.pages;
+package org.example.selenium.pages.Delhaize;
 
 import org.example.api.models.Item;
+import org.example.selenium.pages.GenericAbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

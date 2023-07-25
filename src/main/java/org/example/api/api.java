@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.api.models.Item;
 import org.example.selenium.driver.WebDriverProvider;
-import org.example.selenium.pages.SearchResultPage;
+import org.example.selenium.pages.Delhaize.SearchResultPage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Api {
     }
 
 
-    //SELENIUM
+    //SELENIUM because result page is rendered in iframe
     public String lookUpDelhaize(@PathVariable String searchTerm) throws JsonProcessingException {
         WebDriverProvider.setUpDriver(true);
         WebDriverProvider.goToURL("https://www.delhaize.be/shop/search?text=" + searchTerm);
@@ -104,55 +103,66 @@ public class Api {
         return objectMapper.writeValueAsString(itemsList);
     }
 
-    public String lookUpCarrefour(@PathVariable String searchTerm) throws IOException {
+//    public String lookUpCarrefour(@PathVariable String searchTerm) throws IOException {
+//
+//        String url = "https://drive.carrefour.be/nl/search?text=" + searchTerm;
+//
+//        URL apiUrl = new URL(url);
+//        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+//        connection.setRequestMethod("GET");
+//
+//        StringBuilder response = new StringBuilder();
+//
+//        int responseCode = connection.getResponseCode();
+//
+//        List<Item> itemsList = new ArrayList<>();
+//
+//        if (responseCode == HttpURLConnection.HTTP_OK) {
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//            String line;
+//
+//
+//            while ((line = reader.readLine()) != null) {
+//                response.append(line);
+//            }
+//            reader.close();
+//
+//            // Parse the HTML response
+//            Document document = Jsoup.parse(response.toString());
+//
+////             Extract information using CSS selectors
+//            Elements elements = document.select(".product__listing .product-item");
+//
+//            // Process the extracted elements
+//            for (Element element : elements) {
+//                // Extract specific data from the element
+//                String title = element.select(".name-title").text();
+//                String price = element.select(".priceinfo .baseprice").text();
+//                String size = element.select(".priceinfo .txt-label").text();
+//                //TODO: fix lazy loading for images while scraping
+//                String imageUrl = element.select("img").attr("src");
+//                String pricePerKg = element.select("#price").text();
+//                itemsList.add(new Item(title, price, size, imageUrl,  pricePerKg));
+//            }
+//
+//            connection.disconnect();
+//        }
+//        System.out.println(itemsList);
+//
+//
+//        return objectMapper.writeValueAsString(itemsList);
+//
+//    }
 
-        String url = "https://drive.carrefour.be/nl/search?text=" + searchTerm;
-
-        URL apiUrl = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
-        connection.setRequestMethod("GET");
-
-        StringBuilder response = new StringBuilder();
-
-        int responseCode = connection.getResponseCode();
-
-        List<Item> itemsList = new ArrayList<>();
-
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
+    //SELENIUM because of lazy loading images
+    public String lookUpCarrefour(@PathVariable String searchTerm) throws JsonProcessingException {
+        WebDriverProvider.setUpDriver(true);
+        WebDriverProvider.goToURL("https://drive.carrefour.be/nl/search?text=" + searchTerm);
 
 
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-
-            // Parse the HTML response
-            Document document = Jsoup.parse(response.toString());
-
-//             Extract information using CSS selectors
-            Elements elements = document.select(".product__listing .product-item");
-
-            // Process the extracted elements
-            for (Element element : elements) {
-                // Extract specific data from the element
-                String title = element.select(".name-title").text();
-                String price = element.select(".priceinfo .baseprice").text();
-                String size = element.select(".priceinfo .txt-label").text();
-                //TODO: fix lazy loading for images while scraping
-                String imageUrl = element.select("img").attr("src");
-                String pricePerKg = element.select("#price").text();
-                itemsList.add(new Item(title, price, size, imageUrl,  pricePerKg));
-            }
-
-            connection.disconnect();
-        }
-        System.out.println(itemsList);
-
-
+        List<Item> itemsList = new org.example.selenium.pages.Carrefour.SearchResultPage().getProducts();
+        WebDriverProvider.quitDriver();
         return objectMapper.writeValueAsString(itemsList);
-
     }
 }
 

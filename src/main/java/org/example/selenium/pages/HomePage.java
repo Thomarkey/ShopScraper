@@ -1,5 +1,6 @@
 package org.example.selenium.pages;
 
+import org.example.selenium.pages.Delhaize.SearchResultPage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 

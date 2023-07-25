@@ -1,5 +1,6 @@
 package org.example.selenium.pages;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -29,19 +30,28 @@ public class CookiesPage extends GenericAbstractPage {
 
 
     public CookiesPage selectLanguageIfNecessary() {
-        waitShortForElementVisibility(languagePopup);
-        if (languagePopup.isEnabled()) {
+        try {
+            waitShortForElementVisibility(languagePopup);
+            if (languagePopup.isEnabled()) {
 //        if(languagePopup.isDisplayed()){
-            dutchLanguageBtn.click();
+                dutchLanguageBtn.click();
+            }
+        } catch (TimeoutException ignored) {
+
         }
         return this;
     }
 
     public void acceptCookiesIfNecessary() {
-        waitShortForElementVisibility(cookiesPopup);
-        if (cookiesPopup.isEnabled()) {
+        try {
+            waitShortForElementVisibility(cookiesPopup);
+            if (cookiesPopup.isEnabled()) {
 //        if(cookiesPopup.isDisplayed()){
-            acceptCookiesBtn.click();
+                acceptCookiesBtn.click();
+            }
+        } catch (TimeoutException ignored) {
         }
     }
 }
+
+
